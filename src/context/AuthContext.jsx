@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { createContext, useState } from "react";
 import useWebSocket from "react-use-websocket";
+const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
+const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
+console.log(backendUrl);
 
 export const AuthContext = createContext();
 
@@ -14,10 +17,10 @@ export const AuthContextProvider = ({ children }) => {
     readyState,
     lastMessage,
     sendMessage,
-  } = useWebSocket("/chat?user=" + (currentUser?.id || null), {});
+  } = useWebSocket(`${backendUrlWS}?user=` + (currentUser?.id || null), {});
   const login = async (inputs) => {
     try {
-      const res = await axios.post("/api/api/auth/login", inputs);
+      const res = await axios.post(`${backendUrl}/api/auth/login`, inputs);
       setCurrentUser(res.data);
       localStorage.setItem("user", JSON.stringify(res.data));
       return res;
@@ -28,7 +31,7 @@ export const AuthContextProvider = ({ children }) => {
   };
   const logout = async () => {
     try {
-      const res = await axios.get("/api/api/auth/logout");
+      const res = await axios.get(`${backendUrl}/api/auth/logout`);
       setCurrentUser(null);
       localStorage.clear("user");
     } catch (err) {

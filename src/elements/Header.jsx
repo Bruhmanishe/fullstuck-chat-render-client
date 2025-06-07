@@ -5,6 +5,8 @@ import userDefaultIcon from "../assets/user-logo-default.png";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
+const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
+const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 
 const Header = () => {
   const { currentUser, setCurrentUser, logout } = useContext(AuthContext);
@@ -28,7 +30,7 @@ const Header = () => {
   const handleGetUsers = async () => {
     try {
       const res = await axios.get(
-        "api/api/users/getUsers" + "?username=" + searchUser
+        `${backendUrl}/api/users/getUsers` + "?username=" + searchUser
       );
       setSearchUserResults(res.data);
     } catch (err) {

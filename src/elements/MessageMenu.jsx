@@ -2,6 +2,9 @@ import React, { useContext, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 
+const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
+const backendUrlWS = import.meta.env.VITE_BACKEND_HTTP;
+
 const MessageMenu = ({
   messageData,
   messageIndex,
@@ -21,7 +24,7 @@ const MessageMenu = ({
       setMessageMenu({ messageId: null, isHidden: true });
       setIsMakingChanges(true);
       const res = await axios.get(
-        `/api/api/messages/deleteMessage?id=${messageData.id}`
+        `${backendUrl}/api/messages/deleteMessage?id=${messageData.id}`
       );
       setIsMakingChanges(false);
     } catch (err) {
@@ -42,7 +45,7 @@ const MessageMenu = ({
 
   const handleSendEmoji = async (e) => {
     try {
-      const res = await axios.post("api/api/messages/setReaction", {
+      const res = await axios.post(`${backendUrl}/api/messages/setReaction`, {
         emoji: e.target.innerHTML,
         messageId: messageData.id,
         chatId: messageData.chatId,

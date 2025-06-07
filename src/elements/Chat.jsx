@@ -6,6 +6,8 @@ import UserProfile from "./UserProfile";
 import MessageMenu from "./MessageMenu";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
+const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
+const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 
 const Chat = ({ chatId, notifications, usersOnline }) => {
   const [chat, setChat] = useState(null);
@@ -31,7 +33,7 @@ const Chat = ({ chatId, notifications, usersOnline }) => {
   const handleGetChatData = async () => {
     try {
       const res = await axios.get(
-        `api/api/chats/getChat?chatId=${chatId}&userId=${currentUser.id}`
+        `${backendUrl}/api/chats/getChat?chatId=${chatId}&userId=${currentUser.id}`
       );
 
       setChat(res.data);
@@ -51,7 +53,7 @@ const Chat = ({ chatId, notifications, usersOnline }) => {
     e.preventDefault();
     if (messageText.length < 1) return;
     try {
-      const res = await axios.post(`/api/api/messages/changeMessage`, {
+      const res = await axios.post(`${backendUrl}/api/messages/changeMessage`, {
         id: messageToChangeData.id,
         text: messageText,
       });
@@ -66,7 +68,7 @@ const Chat = ({ chatId, notifications, usersOnline }) => {
     e.preventDefault();
     try {
       setIsInputsDisabled(true);
-      const res = await axios.post("api/api/messages/sendMessage", {
+      const res = await axios.post(`${backendUrl}/api/messages/sendMessage`, {
         text: messageText,
         chatId,
         userId: currentUser.id,
@@ -93,10 +95,13 @@ const Chat = ({ chatId, notifications, usersOnline }) => {
     });
     if (chatNotifications.length < 1) return;
     try {
-      const res = await axios.post("api/api/chats/markReadNotifications", {
-        notifications: chatNotifications,
-        userId: currentUser.id,
-      });
+      const res = await axios.post(
+        `${backendUrl}/api/chats/markReadNotifications`,
+        {
+          notifications: chatNotifications,
+          userId: currentUser.id,
+        }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -301,7 +306,7 @@ const Chat = ({ chatId, notifications, usersOnline }) => {
                                         e.target.style.opacity = "0.4";
 
                                         const res = await axios.post(
-                                          "api/api/messages/setReaction",
+                                          `${backendUrl}/api/messages/setReaction`,
                                           {
                                             emoji: emoji,
                                             messageId: message.id,

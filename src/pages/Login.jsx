@@ -3,12 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import useWebSocket from "react-use-websocket";
 import { Link, useNavigate } from "react-router-dom";
+const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
+const backendUrl = import.meta.env.HTTP;
 
 const Login = () => {
   const [user, setUser] = useState({});
   const { login, currentUser } = useContext(AuthContext);
   const { lastJsonMesage, sendJsonMessage, readyState, lastMessage } =
-    useWebSocket("/chat", { queryParams: { room: 10 } });
+    useWebSocket(backendUrl, { queryParams: { room: 10 } });
 
   const navigate = useNavigate();
   const handleChange = (e) => {

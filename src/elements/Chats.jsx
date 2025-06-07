@@ -19,13 +19,15 @@ const Chats = () => {
   const [usersOnline, setUsersOnline] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+  const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
+  const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 
   const { currentUser, lastMessage, lastJsonMesage } = useContext(AuthContext);
   const handleGetChats = async () => {
     try {
       setIsLoading(true);
       const res = await axios.post(
-        "/api/api/chats/getChats?userId=" + currentUser.id
+        `${backendUrl}/api/chats/getChats?userId=` + currentUser.id
       );
       const data = [...res.data].map((chat) => {
         if (chat?.lastMessage?.date) {

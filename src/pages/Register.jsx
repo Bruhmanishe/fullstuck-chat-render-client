@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
+const backendUrlWS = import.meta.env.VITE_BACKEND_HTTP;
 
 const Register = () => {
   const [user, setUser] = useState({});
@@ -10,7 +12,7 @@ const Register = () => {
 
   const handleClick = async () => {
     try {
-      const res = await axios.post("/api/api//auth/register", user);
+      const res = await axios.post(`${backendUrl}/api//auth/register`, user);
       navigate("/");
     } catch (err) {
       console.log(err);

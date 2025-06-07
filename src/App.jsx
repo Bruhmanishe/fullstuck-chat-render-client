@@ -11,6 +11,9 @@ import Header from "./elements/Header";
 import User from "./pages/User";
 import { AuthContext } from "./context/AuthContext";
 import Chats from "./elements/Chats";
+axios.defaults.withCredentials = true;
+const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
+const backendUrlWS = import.meta.env.VITE_BACKEND_HTTP;
 
 const Layout = () => {
   return (
@@ -42,7 +45,7 @@ function App() {
   useEffect(() => {
     const handleServerConnection = async () => {
       try {
-        const res = await axios.get("/api/");
+        const res = await axios.get(`${backendUrl}/`);
       } catch (err) {
         if (err.status !== 401) return console.log(err);
         logout();
