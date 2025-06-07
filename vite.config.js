@@ -19,5 +19,5 @@ export default defineConfig({
       },
     },
   },
-  base: "/full-stuck-chat/",
+  base: "/fullstuck-chat/",
 });
