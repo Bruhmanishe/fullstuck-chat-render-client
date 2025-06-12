@@ -12,7 +12,7 @@ const Register = () => {
 
   const handleClick = async () => {
     try {
-      const res = await axios.post(`${backendUrl}/api//auth/register`, user);
+      const res = await axios.post(`${backendUrl}/api/auth/register`, user);
       navigate("/");
     } catch (err) {
       console.log(err);
