@@ -9,7 +9,13 @@ import { Link } from "react-router-dom";
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 
-const Chat = ({ chatId, notifications, usersOnline }) => {
+const Chat = ({
+  chatId,
+  notifications,
+  usersOnline,
+  setIsChatClosed,
+  handleGetChats,
+}) => {
   const [chat, setChat] = useState(null);
   const [messageText, setMessageText] = useState("");
   const [messageReplyTo, setMessageReplyTo] = useState({});
@@ -394,6 +400,9 @@ const Chat = ({ chatId, notifications, usersOnline }) => {
         isUserProfileHidden={isUserProfileHidden}
         setIsUserProfileHidden={setIsUserProfileHidden}
         userData={chat?.user && chat.user}
+        chat={chat}
+        setIsChatClosed={setIsChatClosed}
+        handleGetChats={handleGetChats}
       />
     </div>
   );

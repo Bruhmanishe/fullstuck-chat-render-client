@@ -211,6 +211,8 @@ const Chats = () => {
               chatId={chat.chatId}
               notifications={notifications}
               usersOnline={usersOnline}
+              setIsChatClosed={setIsChatClosed}
+              handleGetChats={handleGetChats}
             />
           )}
         </div>
