@@ -25,7 +25,7 @@ const UserProfile = ({
       });
       setIsUserProfileHidden(true);
       setIsChatClosed(true);
-      setTimeout(() => handleGetChats(), 200);
+      handleGetChats();
     } catch (err) {
       console.log(err);
     }
