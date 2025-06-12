@@ -46,6 +46,7 @@ const Chats = () => {
       if (err.status !== 404) return setChats(null);
       setChats([]);
       console.log(err, chats);
+      setIsLoading(false);
     }
   };
 
