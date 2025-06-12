@@ -12,6 +12,7 @@ import User from "./pages/User";
 import { AuthContext } from "./context/AuthContext";
 import Chats from "./elements/Chats";
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_HTTP;
 
