@@ -3,6 +3,7 @@ import userDefaultIcon from "../assets/user-logo-default.png";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import { ErrorContext } from "../context/ErrorContext";
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 
@@ -16,6 +17,7 @@ const UserProfile = ({
   chatId,
 }) => {
   const { currentUser } = useContext(AuthContext);
+  const { setIsErrorExists, setErrorTxt } = useContext(ErrorContext);
   const handleDelteChat = async () => {
     try {
       console.log(chat);
@@ -28,6 +30,8 @@ const UserProfile = ({
       handleGetChats();
     } catch (err) {
       console.log(err);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
   return (

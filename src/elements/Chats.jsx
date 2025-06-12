@@ -7,6 +7,7 @@ import Chat from "./Chat";
 import { useNavigate, useLocation } from "react-router-dom";
 import Loading from "./Loading";
 import notifSound from "../sounds/message-recieve-01.mp3";
+import { ErrorContext } from "../context/ErrorContext";
 
 const Chats = () => {
   const [chats, setChats] = useState([]);
@@ -21,6 +22,7 @@ const Chats = () => {
   const location = useLocation();
   const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
   const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
+  const { setIsErrorExists, setErrorTxt } = useContext(ErrorContext);
 
   const { currentUser, lastMessage, lastJsonMesage } = useContext(AuthContext);
   const handleGetChats = async () => {
@@ -47,6 +49,8 @@ const Chats = () => {
       setChats([]);
       console.log(err, chats);
       setIsLoading(false);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
 

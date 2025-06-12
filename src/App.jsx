@@ -11,17 +11,20 @@ import Header from "./elements/Header";
 import User from "./pages/User";
 import { AuthContext } from "./context/AuthContext";
 import Chats from "./elements/Chats";
+import ErrorContextProvider, { ErrorContext } from "./context/ErrorContext";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_HTTP;
 
 const Layout = () => {
+  const { isErrorExists } = useContext(ErrorContext);
   return (
     <>
       <Header />
       <Outlet />
       <Chats />
+      {isErrorExists && <Error />}
     </>
   );
 };
@@ -42,7 +45,6 @@ const router = createBrowserRouter([
 
 function App() {
   const { currentUser, logout, lastMessage } = useContext(AuthContext);
-
   useEffect(() => {
     const handleServerConnection = async () => {
       try {

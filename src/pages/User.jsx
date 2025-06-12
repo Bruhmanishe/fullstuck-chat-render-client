@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { ErrorContext } from "../context/ErrorContext";
 import useWebSocket from "react-use-websocket";
 import Loading from "../elements/Loading";
 
@@ -13,11 +14,13 @@ const User = () => {
   const { currentUser, sendJsonMessage } = useContext(AuthContext);
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const { setIsErrorExists, setErrorTxt } = useContext(ErrorContext);
 
   const location = useLocation();
   const navigate = useNavigate();
   const handleGetUser = async () => {
     try {
+      setIsLoading(true);
       const res = await axios.get(
         `${backendUrl}/api/users/getUser` + location.search
       );
@@ -25,6 +28,9 @@ const User = () => {
       setIsLoading(false);
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
   const handleClick = async (e) => {
@@ -39,6 +45,8 @@ const User = () => {
       console.log(res.data);
     } catch (err) {
       console.log(err);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
 

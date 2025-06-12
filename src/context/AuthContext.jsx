@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { createContext, useState } from "react";
+import { useContext } from "react";
 import useWebSocket from "react-use-websocket";
+import { ErrorContext } from "./ErrorContext";
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 console.log(backendUrl);
@@ -8,6 +10,8 @@ console.log(backendUrl);
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
+  const { isErrorExists, setIsErrorExists, setErrorTxt } =
+    useContext(ErrorContext);
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
@@ -26,6 +30,8 @@ export const AuthContextProvider = ({ children }) => {
       return res;
     } catch (err) {
       console.log(err);
+      setErrorTxt(err.response.data);
+      setIsErrorExists(true);
       return err;
     }
   };

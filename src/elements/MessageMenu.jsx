@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import { ErrorContext } from "../context/ErrorContext";
 
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_HTTP;
@@ -17,6 +18,8 @@ const MessageMenu = ({
   const [isMakingChanges, setIsMakingChanges] = useState(false);
   const [isChoosingEmoji, setIsChoosingEmoji] = useState(false);
   const [isReactionsRollout, setIsReactionsRollout] = useState(false);
+  const { setIsErrorExists, setErrorTxt } = useContext(ErrorContext);
+
   const mainRef = useRef(null);
   const handleDeleteMessage = async (e) => {
     try {
@@ -29,6 +32,8 @@ const MessageMenu = ({
       setIsMakingChanges(false);
     } catch (err) {
       console.log(err);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
 
@@ -53,6 +58,8 @@ const MessageMenu = ({
       });
     } catch (err) {
       console.log(err);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
   return (

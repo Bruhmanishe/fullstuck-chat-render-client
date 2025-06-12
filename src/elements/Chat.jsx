@@ -6,6 +6,7 @@ import UserProfile from "./UserProfile";
 import MessageMenu from "./MessageMenu";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
+import { ErrorContext } from "../context/ErrorContext";
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 
@@ -34,6 +35,7 @@ const Chat = ({
   const chatWindowRef = useRef(null);
   const scrollToReplyRef = useRef(null);
   const [scrollToReply, setScrollToReply] = useState(null);
+  const { setIsErrorExists, setErrorTxt } = useContext(ErrorContext);
 
   const { currentUser, lastMessage } = useContext(AuthContext);
   const handleGetChatData = async () => {
@@ -41,11 +43,13 @@ const Chat = ({
       const res = await axios.get(
         `${backendUrl}/api/chats/getChat?chatId=${chatId}&userId=${currentUser.id}`
       );
-
       setChat(res.data);
       setIsLoading(false);
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
 
@@ -67,6 +71,8 @@ const Chat = ({
       setMessageText("");
     } catch (err) {
       console.log(err);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
 
@@ -87,6 +93,8 @@ const Chat = ({
     } catch (err) {
       console.log(err);
       setIsInputsDisabled(true);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
 
@@ -110,6 +118,8 @@ const Chat = ({
       );
     } catch (err) {
       console.log(err);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
 
@@ -324,6 +334,8 @@ const Chat = ({
                                         e.target.style.opacity = "1.5";
                                       } catch (err) {
                                         console.log(err);
+                                        setIsErrorExists(true);
+                                        setErrorTxt(err.response.data);
                                         e.target.style.pointerEvents = "all";
                                         e.target.style.opacity = "1.5";
                                       }
