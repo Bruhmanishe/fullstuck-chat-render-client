@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import userDefaultIcon from "../assets/user-logo-default.png";
 import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 
@@ -12,10 +14,11 @@ const UserProfile = ({
   setIsChatClosed,
   handleGetChats,
 }) => {
+  const { currentUser } = useContext(AuthContext);
   const handleDelteChat = async () => {
     try {
-      const res = axios.post(`${backendUrl}/deleteChat`, {
-        userId: userData.id,
+      const res = axios.post(`${backendUrl}/api/chats/deleteChat`, {
+        userId: currentUser.id,
         chatId: chat.id,
       });
       setIsUserProfileHidden(true);
