@@ -403,6 +403,7 @@ const Chat = ({
         chat={chat}
         setIsChatClosed={setIsChatClosed}
         handleGetChats={handleGetChats}
+        chatId={chatId}
       />
     </div>
   );

@@ -13,13 +13,15 @@ const UserProfile = ({
   chat,
   setIsChatClosed,
   handleGetChats,
+  chatId,
 }) => {
   const { currentUser } = useContext(AuthContext);
   const handleDelteChat = async () => {
     try {
+      console.log(chat);
       const res = axios.post(`${backendUrl}/api/chats/deleteChat`, {
         userId: currentUser.id,
-        chatId: chat.id,
+        chatId,
       });
       setIsUserProfileHidden(true);
       setIsChatClosed(true);
