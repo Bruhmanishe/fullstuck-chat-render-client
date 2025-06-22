@@ -22,7 +22,7 @@ const Register = () => {
       setIsLoading(true);
       const res = await axios.post(`${backendUrl}/api/auth/register`, user);
       setIsLoading(false);
-      navigate("/");
+      navigation("/verify");
     } catch (err) {
       console.log(err);
       setErrorTxt(err.response.data);

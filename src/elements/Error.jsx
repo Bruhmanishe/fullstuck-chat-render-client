@@ -4,6 +4,7 @@ import { ErrorContext } from "../context/ErrorContext";
 
 const Error = () => {
   const { errorTxt, setIsErrorExists } = useContext(ErrorContext);
+  console.log(errorTxt);
   return (
     <div className="error__container">
       <div className="error__menu">

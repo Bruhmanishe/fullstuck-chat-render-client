@@ -5,6 +5,7 @@ import userDefaultIcon from "../assets/user-logo-default.png";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { ErrorContext } from "../context/ErrorContext";
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 
@@ -15,6 +16,8 @@ const Header = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [isBurgerMenuHidden, setIsBurgerMenuHidden] = useState(true);
   const [isSearchBarHidden, setIsSearchBarHidden] = useState(true);
+  const { setIsErrorExists, setErrorTxt } = useContext(ErrorContext);
+
   const handleClick = async () => {
     try {
       await logout();
@@ -35,6 +38,8 @@ const Header = () => {
       setSearchUserResults(res.data);
     } catch (err) {
       console.log(err);
+      setIsErrorExists(true);
+      setErrorTxt(err.response.data);
     }
   };
 

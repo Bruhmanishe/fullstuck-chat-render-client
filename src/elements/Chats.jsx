@@ -49,8 +49,8 @@ const Chats = () => {
       setChats([]);
       console.log(err, chats);
       setIsLoading(false);
-      setIsErrorExists(true);
-      setErrorTxt(err.response.data);
+      // setIsErrorExists(true);
+      // setErrorTxt(err.response.data);
     }
   };
 
