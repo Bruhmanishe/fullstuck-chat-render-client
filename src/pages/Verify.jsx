@@ -16,7 +16,7 @@ const Verify = () => {
         const res = await axios.post(
           `${backendUrl}/api/auth/verify` + location.search
         );
-        navigation("/verify");
+        navigation("/login");
       } catch (err) {
         console.log(err);
         setIsErrorExists(true);
