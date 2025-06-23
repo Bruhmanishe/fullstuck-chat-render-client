@@ -168,7 +168,11 @@ const Chats = () => {
                         <div className="chats__data">
                           <h4>{chat.username}</h4>
                           <div className="chats__last-message">
-                            <p>{chat.lastMessage?.text || ""}</p>
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: chat.lastMessage?.text || "",
+                              }}
+                            ></p>
                             <p>
                               {(chat?.lastMessage?.date &&
                                 `${

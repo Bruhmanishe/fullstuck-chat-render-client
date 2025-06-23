@@ -451,6 +451,47 @@ main {
   justify-content: end;
 }
 
+.chat__input {
+  resize: none;
+  flex-grow: 1;
+}
+
+.chat__input ::-webkit-scrollbar-thumb {
+  background: #9c2fe4;
+}
+.chat__input ::-webkit-scrollbar-thumb {
+  background: #9c2fe4;
+}
+
+.chat__input ::-webkit-scrollbar {
+  width: 3px;
+}
+
+.chat__input ::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f0d0d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b037a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #77018ffa;
+}
+
+.chat__input:focus {
+  border: none;
+  outline: none;
+}
+
 .reply {
   display: flex;
   position: absolute;

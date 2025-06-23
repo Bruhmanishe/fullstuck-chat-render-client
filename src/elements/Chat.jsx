@@ -7,6 +7,8 @@ import MessageMenu from "./MessageMenu";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import { ErrorContext } from "../context/ErrorContext";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 
@@ -100,6 +102,7 @@ const Chat = ({
 
   const handleChange = (e) => {
     setMessageText(e.target.value);
+    console.log(e.target.value);
   };
 
   const handleMarkReadNotifications = async () => {
@@ -276,7 +279,10 @@ const Chat = ({
                               </p>
                             </div>
                           )}
-                        <p className="chat__message-text">{message.text}</p>
+                        <p
+                          className="chat__message-text"
+                          dangerouslySetInnerHTML={{ __html: message.text }}
+                        ></p>
                         <p className="chat__message-time">
                           {`${message.date.split(" ")[1].split(":")[0]}:${
                             message.date.split(" ")[1].split(":")[1]
@@ -398,7 +404,13 @@ const Chat = ({
           </div>
         )}
         <div className="chat__input">
-          <input type="text" value={messageText} onChange={handleChange} />
+          <ReactQuill
+            theme="snow"
+            value={messageText}
+            onChange={setMessageText}
+            modules={{ toolbar: false }}
+            style={{ width: "100%", maxHeight: "100%" }}
+          />
         </div>
         <div className="chat__btn-send">
           {!messageToChangeData?.id ? (

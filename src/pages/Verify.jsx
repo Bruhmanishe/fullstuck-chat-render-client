@@ -12,7 +12,6 @@ const Verify = () => {
   const { isErrorExists, setIsErrorExists, setErrorTxt } =
     useContext(ErrorContext);
   const [isLoading, setIsLoading] = useState(false);
-  const location = useLocation();
   const [code, setCode] = useState("");
   const navigation = useNavigate();
   const handleSendVerify = async () => {
