@@ -133,6 +133,29 @@ header {
   transform: translate(100%);
 }
 
+.header__menu {
+  display: flex;
+  align-items: center;
+}
+
+.header__userprofile-btn {
+  display: flex;
+  padding: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  gap: 4px;
+  text-wrap: wrap;
+}
+
+.header__userprofile-btn img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-bottom: solid 3px #4a027a;
+  border-right: solid 3px #4a027a;
+}
+
 .header__search {
   flex-grow: 1;
   display: flex;
@@ -212,6 +235,113 @@ header {
 
 main {
   height: 500px;
+}
+
+.userpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.userpage__icon {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.userpage__icon img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.userpage__change-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(50%, 50%);
+  background-color: rgba(0, 0, 0, 0);
+  color: #0a0a0a;
+  padding: 0;
+  font-size: 30px;
+  border: none;
+  outline: none;
+}
+
+.userpage__change-icon:hover {
+  border: none;
+  outline: none;
+  background-color: #4b037a;
+  color: #eee;
+}
+
+.userpage__icon-redactor {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  top: 10%;
+  width: 300px;
+  height: 300px;
+  background-color: rgba(0, 0, 0, 1);
+  border-radius: 10px;
+  padding: 4px;
+  border-bottom: solid 6px #6b0caa;
+  border-right: solid 8px #6e0bb1;
+}
+
+.userpage__icon-upload-close-btn {
+  position: absolute;
+  border: none;
+  outline: none;
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.userpage__icon-upload-close-btn:hover {
+  border: none;
+  outline: none;
+}
+
+.userpage__icon-upload-btn {
+  width: 150px;
+  height: 150px;
+  background-color: rgb(255, 255, 255);
+  padding: 0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.userpage__icon-upload-btn img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.userpage__icon-upload {
+  width: 100px;
+  height: 100px;
+  padding: 0;
+  font-size: 29px;
+  border-radius: 50%;
+  border: solid #eee;
+}
+
+.userpage__icon-upload:hover {
+  width: 100px;
+  height: 100px;
+  padding: 0;
+  font-size: 29px;
+  border-radius: 50%;
+  background-color: #eee;
+  border: solid #eee;
+  color: #0a0a0a;
 }
 
 .chats {
@@ -308,6 +438,13 @@ main {
   align-self: center;
   z-index: 10;
   position: relative;
+}
+
+.chats__icon img {
+  display: block;
+  width: 50px;
+  max-width: 50px;
+  object-fit: cover;
 }
 
 .chats__icon:after {
@@ -446,14 +583,14 @@ main {
 
 .chat__input {
   flex-grow: 1;
-  height: 70%;
+  max-height: 70%;
+  resize: none;
   display: flex;
   justify-content: end;
 }
 
-.chat__input {
-  resize: none;
-  flex-grow: 1;
+.chat__input .quill {
+  height: 45px;
 }
 
 .chat__input ::-webkit-scrollbar-thumb {
@@ -599,6 +736,9 @@ main {
 
 .chat__header img {
   border-radius: 50%;
+  object-fit: cover;
+  width: 50px;
+  max-width: 50px;
 }
 
 .chat__window {
@@ -676,10 +816,9 @@ main {
 .message-menu {
   background-color: #4a027a;
   position: absolute;
-  bottom: 60%;
-  transform: translate(50%, 50%);
+  transform: translate(50%, -100%);
   left: 25%;
-  bottom: 150%;
+  top: 100%;
   animation: message-menu-appear linear forwards 0.5s;
 }
 
@@ -766,23 +905,31 @@ main {
   left: 0%;
   transition: all linear 0.4s;
   z-index: 11;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .chat .user-profile button {
   float: right;
-  border-radius: 20%;
+  border-radius: 5px;
   padding: 0;
   width: 30px;
   height: 30px;
   text-align: center;
-  margin-right: 15px;
+}
+
+.user-profile__close-btn {
+  margin-right: 10px;
+  align-self: flex-end;
 }
 
 .chat .user-profile__container {
-  width: 100%;
+  width: 90%;
   /* height: 100%; */
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .chat .user-profile__main {
@@ -801,10 +948,16 @@ main {
 
 .chat .user-profile__icon {
   background-color: #3a035f;
+  border-right: solid #3a035f 5px;
 }
 
 .chat .user-profile__icon img {
   width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.chat .user-profile__username {
 }
 
 .chat .user-profile.hidden {
@@ -813,6 +966,21 @@ main {
   background-color: #0a0a0a;
   position: absolute;
   left: 100%;
+}
+
+.chat .user-profile__settings {
+  display: flex;
+  flex-grow: 1;
+  justify-content: end;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 10px;
+}
+.chat .user-profile__delete-chat-btn {
+  min-width: 100px;
+  align-self: flex-end;
+  flex-direction: column;
+  background-color: rgb(218, 38, 38);
 }
 
 .loading {
@@ -887,6 +1055,43 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* left: 50%; */
+  transform: translate(0, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popup__container {
+  background-color: #3a035f;
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  width: 250px;
+  border-radius: 2px;
+  padding: 4px;
+}
+.popup__options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.popup__options button:nth-child(2) {
+  background-color: red;
+}
+
+.popup__options button {
+  margin-right: 0;
 }
 
 @media screen and (max-width: 1280px) {

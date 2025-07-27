@@ -89,8 +89,15 @@ const Header = () => {
               : "header__menu"
           }
         >
-          {currentUser && <button onClick={handleClick}>Logout</button>}
-          {currentUser && <button onClick={handleClick}>Logout</button>}
+          {currentUser && (
+            <Link
+              to={"/user?username=" + currentUser.username}
+              className="header__userprofile-btn"
+            >
+              <span>{currentUser.username}</span>
+              <img src={currentUser.iconUrl} alt="" />
+            </Link>
+          )}
           {currentUser && <button onClick={handleClick}>Logout</button>}
         </div>
         <div className="header__search">

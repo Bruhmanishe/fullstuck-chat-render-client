@@ -54,6 +54,7 @@ export const AuthContextProvider = ({ children }) => {
         lastJsonMesage,
         sendJsonMessage,
         lastMessage,
+        setCurrentUser,
       }}
     >
       {children}

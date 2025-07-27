@@ -1,61 +1,45 @@
 import axios from "axios";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 const backendUrl = import.meta.env.VITE_BACKEND_HTTP;
 const backendUrlWS = import.meta.env.VITE_BACKEND_WS;
 
 const Post = () => {
-  const [post, setPost] = useState({
-    html: "<p><span style=`color: red`>Post</span>This is</p>",
-    title: "Title",
-    username: "User",
-    userIcon: null,
-    likes: 10,
-  });
+  const { currentUser } = useContext(AuthContext);
+  const [post, setPost] = useState("");
 
-  const [icon, setIcon] = useState(null);
-  // const handleChange = (e) => {
-  //   setText(e.target.value);
-  // };s
-  // const handleCrateBreak = (e) => {
-  //   console.log(e.key);
-  //   if (e.key === "Enter") {
-  //     setText((prev) => prev + "<p>");
-  //   }
-  // };
-
-  const handleClick = async (e) => {
+  const handlePublish = async () => {
     try {
-      const res = await axios.post(backendUrl + "/api/upload/uploadIcon", {
-        icon,
-      });
+      const res = axios.post(backendUrl + "/posts/createPost", {});
     } catch (err) {
       console.log(err);
     }
   };
 
+  useEffect(() => {
+    console.log(post);
+  }, [post]);
+
   return (
     <section className="post">
-      <div className="post__user">
-        <div className="post__user-data"></div>
-        <div className="post__user-controls"></div>
-      </div>
-      <h2 className="post__title">{post.title}</h2>
-      <div className="post__content-container">
-        <div
-          className="post__content"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        ></div>
-        <div className="post__likes"></div>
-      </div>
-      <input
-        type="file"
-        max={1}
-        onChange={(e) => {
-          setIcon(e.target.files[0]);
+      <ReactQuill
+        modules={{
+          toolbar: {
+            container: [
+              [{ header: [1, 2, 3, 4, 5, 6, false] }],
+              ["bold", "italic", "underline", "strike"],
+              ["link", "video"],
+              ["clean"],
+            ],
+          },
         }}
+        value={post}
+        onChange={setPost}
       />
-      <button onClick={handleClick}></button>
+      <button className="post__publish-btn">Publish</button>
     </section>
   );
 };

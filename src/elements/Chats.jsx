@@ -163,7 +163,7 @@ const Chats = () => {
                               : "chats__icon"
                           }
                         >
-                          <img src={chat.icon || userDefaultIcon} alt="" />
+                          <img src={chat.iconUrl || userDefaultIcon} alt="" />
                         </div>
                         <div className="chats__data">
                           <h4>{chat.username}</h4>

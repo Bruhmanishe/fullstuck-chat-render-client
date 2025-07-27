@@ -81,12 +81,18 @@ const Chat = ({
   const handleClick = async (e) => {
     e.preventDefault();
     try {
+      const messageTextElem = document.createElement("div");
+      messageTextElem.innerHTML = messageText;
+      if (messageTextElem.querySelectorAll("p").length > 8)
+        throw new Error("Message too long!");
+      if (messageText.length > 4000) throw new Error("Message too long!");
       setIsInputsDisabled(true);
       const res = await axios.post(`${backendUrl}/api/messages/sendMessage`, {
         text: messageText,
         chatId,
         userId: currentUser.id,
         replyTo: messageReplyTo.id,
+        otherUserId: chat.user.id,
       });
       setIsInputsDisabled(false);
       setMessageToChangeData({});
@@ -94,9 +100,10 @@ const Chat = ({
       setMessageText("");
     } catch (err) {
       console.log(err);
-      setIsInputsDisabled(true);
+      setIsInputsDisabled(false);
       setIsErrorExists(true);
-      setErrorTxt(err.response.data);
+      if (err?.response?.data) setErrorTxt(err.response.data);
+      else if (err?.message) setErrorTxt(err.message);
     }
   };
 
@@ -160,6 +167,7 @@ const Chat = ({
   useEffect(() => {
     if (lastMessageRef.current && !isUpdateWithoutScroll)
       lastMessageRef.current.scrollIntoView();
+    console.log(chat);
   }, [chat]);
 
   useEffect(() => {
@@ -190,7 +198,7 @@ const Chat = ({
           {isLoading ? (
             <Loading />
           ) : (
-            <img src={chat?.user?.img || userDefaultIcon} />
+            <img src={chat?.user?.iconUrl || userDefaultIcon} />
           )}
         </div>
         <div className="chat__header-name">{chat?.user?.username}</div>
